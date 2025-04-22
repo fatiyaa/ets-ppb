@@ -22,7 +22,14 @@ class NoteCard extends StatelessWidget {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text(note.title),
+              title: Text(
+                note.title,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
+              ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
