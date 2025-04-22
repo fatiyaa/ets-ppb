@@ -16,57 +16,82 @@ class NoteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.only(bottom: 24),
-      decoration: BoxDecoration(
-        // border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.yellow.shade200.withAlpha(96),
-            blurRadius: 12,
-            offset: Offset(0, 5),
-          ),
-        ],
-        color: Colors.yellow[50],
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(25.0),
-                  child: Image.network(
-                    '${note.imageUrl}',
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      note.title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(note.note),
-                  ],
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(note.title),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(note.note),
+                  SizedBox(height: 10),
+                  Image.network(note.imageUrl),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('Close'),
                 ),
               ],
+            );
+          },
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.only(bottom: 24),
+        decoration: BoxDecoration(
+          // border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.circular(8.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.yellow.shade200.withAlpha(96),
+              blurRadius: 12,
+              offset: Offset(0, 5),
             ),
-          ),
-          NoteEditForm(editNote: editNote, oldNote: note),
-          IconButton(icon: Icon(Icons.delete), onPressed: () => deleteNote()),
-        ],
+          ],
+          color: Colors.yellow[50],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(25.0),
+                    child: Image.network(
+                      '${note.imageUrl}',
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        note.title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      Text(note.note),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            NoteEditForm(editNote: editNote, oldNote: note),
+            IconButton(icon: Icon(Icons.delete), onPressed: () => deleteNote()),
+          ],
+        ),
       ),
-      //
     );
   }
 }
