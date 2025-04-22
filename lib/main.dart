@@ -21,7 +21,11 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.yellow[200],
           title: const Text(
             'StoryBase',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              color: Colors.blue,
+            ),
           ),
         ),
         body: Notes(),
